@@ -1,5 +1,7 @@
 const request = require("supertest");
 const express = require("express");
+require("dotenv").config();
+
 const mongoose = require("mongoose");
 const authRouter = require("./routes/auth"); // Adjust the path as necessary
 const userRouter = require("./routes/users"); // Adjust the path as necessary
@@ -22,13 +24,10 @@ app.use("/api/books", bookRouter);
 
 // Connect to the database before all tests
 beforeAll(async () => {
-	await mongoose.connect(
-		"mongodb+srv://biya19:biya19@cluster0.eqigu.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0",
-		{
-			useNewUrlParser: true,
-			useUnifiedTopology: true,
-		}
-	);
+	await mongoose.connect(process.env.MONGO_URL, {
+		useNewUrlParser: true,
+		useUnifiedTopology: true,
+	});
 	console.log("connected");
 });
 
@@ -47,7 +46,7 @@ afterAll(async () => {
 
 describe("Auth Routes", () => {
 	it("should register a new user", async () => {
-        jest.setTimeout(10000)
+		jest.setTimeout(10000);
 		const response = await request(app).post("/api/auth/register").send({
 			name: "Test User",
 			email: "test@example.com",
