@@ -13,6 +13,8 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
+    env:
+        MONGO_URL: "mongodb+srv://biya19:biya19@cluster0.eqigu.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
 
     strategy:
       matrix:
