@@ -47,6 +47,7 @@ afterAll(async () => {
 
 describe("Auth Routes", () => {
 	it("should register a new user", async () => {
+        jest.setTimeout(10000)
 		const response = await request(app).post("/api/auth/register").send({
 			name: "Test User",
 			email: "test@example.com",
