@@ -24,6 +24,8 @@ app.use("/api/books", bookRouter);
 
 // Connect to the database before all tests
 beforeAll(async () => {
+	console.log(process.env.MONGO_URL);
+	// jest.setTimeout(10000);
 	await mongoose.connect(process.env.MONGO_URL, {
 		useNewUrlParser: true,
 		useUnifiedTopology: true,
@@ -46,7 +48,6 @@ afterAll(async () => {
 
 describe("Auth Routes", () => {
 	it("should register a new user", async () => {
-		jest.setTimeout(10000);
 		const response = await request(app).post("/api/auth/register").send({
 			name: "Test User",
 			email: "test@example.com",
